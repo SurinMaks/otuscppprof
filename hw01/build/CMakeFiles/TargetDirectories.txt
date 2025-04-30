@@ -1,0 +1,3 @@
+/home/surinmm/Projects/otuscppprof/hw01/build/CMakeFiles/helloworld_cli.dir
+/home/surinmm/Projects/otuscppprof/hw01/build/CMakeFiles/edit_cache.dir
+/home/surinmm/Projects/otuscppprof/hw01/build/CMakeFiles/rebuild_cache.dir
