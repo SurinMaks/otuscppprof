@@ -1,8 +1,0 @@
-[
-{
-  "directory": "/home/surinmm/Projects/otuscppprof/hw01/build",
-  "command": "/usr/bin/c++   -g -o CMakeFiles/helloworld_cli.dir/main.cpp.o -c /home/surinmm/Projects/otuscppprof/hw01/main.cpp",
-  "file": "/home/surinmm/Projects/otuscppprof/hw01/main.cpp",
-  "output": "CMakeFiles/helloworld_cli.dir/main.cpp.o"
-}
-]
