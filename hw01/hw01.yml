@@ -39,8 +39,8 @@ jobs:
           cpack
 
       # # 4. Сохранение артефактов (если пакеты создались)
-      # - name: Upload artifacts
-      #   uses: actions/upload-artifact@v3
-      #   with:
-      #     name: packages
-      #     path: build/*.deb   # или другие форматы
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: packages
+          path: build/*.deb   # или другие форматы
