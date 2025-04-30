@@ -1,0 +1,46 @@
+name: Build Project1
+
+on:
+  push:
+    branches: [ "main" ]
+    paths:
+
+      - 'hw01/**'  # запускается только если изменения в project1/
+jobs:
+  build-and-package:
+    runs-on: ubuntu-latest  # или другой ОС (windows-latest, macos-latest)
+
+    steps:
+      # 1. Подготовка: установка зависимостей и checkout кода
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y cmake build-essential
+
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # 2. Сборка проекта (CMake + Make)
+      - name: Configure with CMake
+        run: |
+          mkdir build
+          cd build
+          cmake ..
+
+      - name: Build with Make
+        run: |
+          cd build
+          make -j$(nproc)
+
+      # 3. Генерация пакетов через CPack
+      - name: Generate packages with CPack
+        run: |
+          cd build
+          cpack
+
+      # 4. Сохранение артефактов (если пакеты создались)
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: packages
+          path: build/*.deb   # или другие форматы
