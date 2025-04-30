@@ -1,4 +1,4 @@
-name: Build Project1
+name: hw01
 
 on:
   push:
