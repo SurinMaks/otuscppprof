@@ -25,7 +25,7 @@ jobs:
         run: |
           mkdir build
           cd build
-          cmake ..
+          cmake ../hw01
 
       - name: Build with Make
         run: |
