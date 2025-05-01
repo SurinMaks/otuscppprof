@@ -26,7 +26,6 @@ target_include_directories(${LIB_NAME} PUBLIC ${CMAKE_SOURCE_DIR}/include ${CMAK
 
 add_executable(${PROJ_NAME}  main.cpp)
 target_link_libraries(${PROJ_NAME} PRIVATE ${LIB_NAME})
-# target_include_directories(${PROJ_NAME} PRIVATE ${LIB_NAME}) #используем наследование путей
 
 # Установка исполняемого файла
 install(
