@@ -6,6 +6,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(PROJ_NAME "helloworld_cli")
 set(LIB_NAME "func")
 
+option(BOOST_TEST "Whether to build Boost test" ON)
+
 if(NOT DEFINED PATCH_VERSION)
     set(PATCH_VERSION "0" CACHE STRING "Patch version")
 endif()
@@ -13,6 +15,10 @@ endif()
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/include/version_hw01.hpp.in ${CMAKE_CURRENT_BINARY_DIR}/version_hw01.hpp)
 
 project(${PROJ_NAME} VERSION ${PROJECT_VERSION} LANGUAGES CXX)
+
+if(BOOST_TEST)
+    add_subdirectory(tests)
+endif()
 
 # Создаем статическую библиотеку
 add_library(${LIB_NAME} STATIC src/func.cpp)
@@ -37,3 +43,9 @@ set(CPACK_PACKAGE_NAME ${PROJECT_NAME})
 set(CPACK_PACKAGE_DESCRIPTION "Simple Hello World CLI application")
 
 include(CPack)
+
+
+if(BOOST_TEST)
+    enable_testing()
+    add_test(NAME VersionTest COMMAND test_version)
+endif()
