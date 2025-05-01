@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest  # или другой ОС (windows-latest, macos-latest)
 
     steps:
-      # 1. Подготовка: установка зависимостей и checkout кода
+        # 1. Подготовка: установка зависимостей и checkout кода
       - name: Install dependencies
         run: |
           sudo apt-get update
@@ -20,20 +20,26 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # 2. Сборка проекта (CMake + Make)
+        # 2. Сборка проекта
       - name: Configure with CMake
         run: |
           mkdir build
           cd build
           cmake ../hw01 -DPATCH_VERSION=${{ github.run_number }}
 
-      # 3. Генерация пакетов через CPack
+        # 3. Генерация пакетов через CPack
       - name: Generate packages with CPack
         run: |
           cd build
           cpack
+          
+        # 4. Запуск тестов
+      - name: Run tests (fail on error)
+        run: |
+          cd build
+          ctest --output-on-failure || exit 1
 
-      # 4. Сохранение артефактов (если пакеты создались)
+        # 5. Сохранение артефактов (если пакеты создались)
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
