@@ -4,6 +4,7 @@ set(PROJECT_VERSION 0.0.${PATCH_VERSION})
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(PROJ_NAME "helloworld_cli")
+set(LIB_NAME "func")
 
 if(NOT DEFINED PATCH_VERSION)
     set(PATCH_VERSION "0" CACHE STRING "Patch version")
@@ -13,13 +14,20 @@ configure_file(${CMAKE_CURRENT_SOURCE_DIR}/include/version_hw01.hpp.in ${CMAKE_C
 
 project(${PROJ_NAME} VERSION ${PROJECT_VERSION} LANGUAGES CXX)
 
-add_executable(${PROJ_NAME}  main.cpp src/func.cpp)
+# Создаем статическую библиотеку
+add_library(${LIB_NAME} STATIC src/func.cpp)
+target_include_directories(${LIB_NAME} PUBLIC ${CMAKE_SOURCE_DIR}/include ${CMAKE_CURRENT_BINARY_DIR} )
 
-target_include_directories(${PROJ_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/include ${CMAKE_CURRENT_BINARY_DIR})
+add_executable(${PROJ_NAME}  main.cpp)
+target_link_libraries(${PROJ_NAME} PRIVATE ${LIB_NAME})
+# target_include_directories(${PROJ_NAME} PRIVATE ${LIB_NAME}) #используем наследование путей
 
 # Установка исполняемого файла
-install(TARGETS ${PROJ_NAME}
-        RUNTIME DESTINATION bin)
+install(
+    TARGETS ${PROJ_NAME} ${LIB_NAME}
+    RUNTIME DESTINATION bin
+    ARCHIVE DESTINATION lib
+)
 
 # Настройка создания deb-пакета
 set(CPACK_GENERATOR "DEB")
