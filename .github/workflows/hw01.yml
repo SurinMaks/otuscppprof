@@ -4,14 +4,13 @@ on:
   push:
     branches: [ "main" ]
     paths:
-
-      - 'hw01/**'  # запускается только если изменения в project1/
+      - 'hw01/**'  #только для hw01
 jobs:
   build-and-package:
-    runs-on: ubuntu-latest  # или другой ОС (windows-latest, macos-latest)
+    runs-on: ubuntu-latest
 
     steps:
-        # 1. Подготовка: установка зависимостей и checkout кода
+        # 1. Установка зависимостей
       - name: Install dependencies
         run: |
           sudo apt-get update
@@ -27,7 +26,7 @@ jobs:
           cd build
           cmake ../hw01 -DPATCH_VERSION=${{ github.run_number }}
 
-        # 3. Генерация пакетов через CPack
+        # 3. Генерация пакетов
       - name: Generate packages with CPack
         run: |
           cd build
@@ -39,9 +38,9 @@ jobs:
           cd build
           ctest --output-on-failure || exit 1
 
-        # 5. Сохранение артефактов (если пакеты создались)
+        # 5. Сохранение артефактов
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
           name: helloworld_cli-0.0.${{ github.run_number }}
-          path: build/*.deb   # или другие форматы
+          path: build/*.deb 
