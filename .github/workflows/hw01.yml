@@ -43,5 +43,5 @@ jobs:
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: helloworld_cli-0.0.${{ github.run_number }}.deb
+          name: helloworld_cli-0.0.${{ github.run_number }}
           path: build/*.deb   # или другие форматы
