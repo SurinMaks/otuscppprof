@@ -2,6 +2,10 @@ cmake_minimum_required(VERSION 3.10.0)
 set(PATCH_VERSION "2" CACHE STRING "Patch version")
 set(PROJECT_VERSION 0.0.${PATCH_VERSION})
 
+if(NOT DEFINED PATCH_VERSION)
+    set(PATCH_VERSION "0" CACHE STRING "Patch version")
+endif()
+
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/include/version_hw01.hpp.in ${CMAKE_CURRENT_BINARY_DIR}/version_hw01.hpp)
 
 project(helloworld_cli VERSION ${PROJECT_VERSION} LANGUAGES C CXX)

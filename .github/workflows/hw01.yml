@@ -25,7 +25,7 @@ jobs:
         run: |
           mkdir build
           cd build
-          cmake ../hw01
+          cmake ../hw01 -DPATCH_VERSION=${{ github.run_number }}
 
       - name: Build with Make
         run: |
