@@ -1,0 +1,6 @@
+#ifndef _VERSION_HW1_HPP_
+#define _VERSION_HW1_HPP_
+
+#define PROJECT_VERSION_PATCH @PATCH_VERSION@
+
+#endif
