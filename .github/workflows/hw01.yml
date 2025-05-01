@@ -27,11 +27,6 @@ jobs:
           cd build
           cmake ../hw01 -DPATCH_VERSION=${{ github.run_number }}
 
-      - name: Build with Make
-        run: |
-          cd build
-          make -j$(nproc)
-
       # 3. Генерация пакетов через CPack
       - name: Generate packages with CPack
         run: |
