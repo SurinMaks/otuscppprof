@@ -44,3 +44,25 @@ jobs:
         with:
           name: helloworld_cli-0.0.${{ github.run_number }}
           path: build/*.deb 
+
+        #6. Создание релиза
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        if: github.ref == 'refs/heads/main'
+        with:
+          tag_name: v0.0.${{ github.run_number }}
+          name: "Release v0.0.${{ github.run_number }}"
+          body: "Automatic build for hw01"
+          draft: false
+          prerelease: false
+
+        #7. Загрузка в релизы
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./build/helloworld_cli-0.0.${{ github.run_number }}.deb
+          asset_name: helloworld_cli-0.0.${{ github.run_number }}.deb
+          asset_content_type: application/vnd.debian.binary-package
