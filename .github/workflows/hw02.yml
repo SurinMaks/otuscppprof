@@ -1,0 +1,68 @@
+name: hw01
+
+on:
+  push:
+    branches: [ "main" ]
+    paths:
+      - 'hw02/**'  #только для hw02
+jobs:
+  build-and-package:
+    runs-on: ubuntu-latest
+
+    steps:
+        # 1. Установка зависимостей
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y cmake build-essential libboost-test-dev
+
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+        # 2. Сборка проекта
+      - name: Configure with CMake
+        run: |
+          mkdir build
+          cd build
+          cmake ../hw02
+
+        # 3. Генерация пакетов
+      - name: Generate packages with CPack
+        run: |
+          cd build
+          cpack
+          
+        # 4. Запуск тестов
+      - name: Run tests (fail on error)
+        run: |
+          cd build
+          ctest --output-on-failure || exit 1
+
+        # 5. Сохранение артефактов
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: ip_filter
+          path: build/*.deb 
+
+        #6. Создание релиза
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        if: github.ref == 'refs/heads/main'
+        with:
+          #tag_name: v0.0.${{ github.run_number }}
+          #name: "Release v0.0.${{ github.run_number }}"
+          body: "Automatic build for hw02"
+          draft: false
+          prerelease: false
+
+        #7. Загрузка в релизы
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./build/ip_filter-0.1.0-Linux.deb
+          asset_name: ip_filter-0.1.0-Linux.deb
+          asset_content_type: application/vnd.debian.binary-package
