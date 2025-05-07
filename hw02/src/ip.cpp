@@ -55,3 +55,8 @@ uint8_t hw2::IP::getOct(uint8_t value) const {
     }
     return{};
 }
+
+bool hw2::IP::operator<(const IP& other){
+    return std::tie(other.ip_addr_.m_oct1, other.ip_addr_.m_oct2, other.ip_addr_.m_oct3, other.ip_addr_.m_oct4)
+        < std::tie(ip_addr_.m_oct1,ip_addr_.m_oct2,ip_addr_.m_oct3,ip_addr_.m_oct4);
+}

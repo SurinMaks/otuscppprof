@@ -28,10 +28,7 @@ int main(int, char**){
     std::sort(ips.begin(), ips.end());
 
     viewdata.View1(ips);
-    std::cout <<'\n';
     viewdata.View2(ips);
-    std::cout <<'\n';
     viewdata.View3(ips);
-    std::cout <<'\n';
     viewdata.View4(ips);
 }

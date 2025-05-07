@@ -22,19 +22,8 @@ namespace hw2{
             virtual ~IP() = default;
             void ReadData(std::istream& input);
             std::string getIP() const;
-            uint8_t getOct(u_int8_t value) const;
-            bool operator<(const IP& other){
-                if(ip_addr_.m_oct1 != other.ip_addr_.m_oct1){
-                    return ip_addr_.m_oct1 < other.ip_addr_.m_oct1;
-                }
-                if(ip_addr_.m_oct2 != other.ip_addr_.m_oct2){
-                    return ip_addr_.m_oct2 < other.ip_addr_.m_oct2;
-                }
-                if(ip_addr_.m_oct3 != other.ip_addr_.m_oct3){
-                    return ip_addr_.m_oct3 < other.ip_addr_.m_oct3;
-                }
-                return ip_addr_.m_oct4 < other.ip_addr_.m_oct4;
-            }
+            uint8_t getOct(uint8_t value) const;
+            bool operator<(const IP& other);
     };
 
 }
