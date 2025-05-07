@@ -75,10 +75,9 @@ set(CPACK_DEBIAN_PACKAGE_DEPENDS "")
 # install(DIRECTORY DESTINATION /opt/hw2/lib)
 # install(DIRECTORY DESTINATION /opt/hw2/bin)
 
-add_custom_target(run_preinstall 
-    COMMAND echo "Running pre-installation steps"
-    COMMENT "Preparing system for package installation"
-)
+set(CPACK_PREINSTALL_SCRIPT "${CMAKE_CURRENT_BINARY_DIR}/preinstall.sh")
+file(WRITE ${CPACK_PREINSTALL_SCRIPT} "#!/bin/sh\necho \"Custom preinstall script\"\nexit 0\n")
+install(CODE "execute_process(COMMAND chmod +x ${CPACK_PREINSTALL_SCRIPT})")
 
 include(CPack)
 
