@@ -72,8 +72,8 @@ set(CPACK_DEBIAN_PACKAGE_MAINTAINER "Maxim Surin")
 set(CPACK_PACKAGE_DESCRIPTION "IP_FILTER")
 set(CPACK_DEBIAN_PACKAGE_DEPENDS "")
 
-install(DIRECTORY DESTINATION /opt/hw2/lib)
-install(DIRECTORY DESTINATION /opt/hw2/bin)
+# install(DIRECTORY DESTINATION /opt/hw2/lib)
+# install(DIRECTORY DESTINATION /opt/hw2/bin)
 
 include(CPack)
 
