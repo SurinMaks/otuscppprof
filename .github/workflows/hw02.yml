@@ -31,6 +31,8 @@ jobs:
         run: |
           cd build
           cpack
+          cpack -G DEB
+          echo "DEB_FILE=$(ls *.deb | head -1)" >> $GITHUB_ENV
           
         # 4. Запуск тестов
       - name: Run tests (fail on error)
@@ -47,12 +49,13 @@ jobs:
 
         #6. Создание релиза
       - name: Create Release
-        uses: softprops/action-gh-release@v1
-        if: github.ref == 'refs/heads/main'
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.PERSONAL_TOKEN }}
         with:
-          #tag_name: v0.0.${{ github.run_number }}
-          #name: "Release v0.0.${{ github.run_number }}"
-          body: "Automatic build for hw02"
+          tag_name: ${{ github.run_number }}
+          release_name: Release ${{ github.run_number }}
           draft: false
           prerelease: false
 
@@ -60,9 +63,9 @@ jobs:
       - name: Upload Release Asset
         uses: actions/upload-release-asset@v1
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.PERSONAL_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./build/ip_filter-0.1.0-Linux.deb
-          asset_name: ip_filter-0.1.0-Linux.deb
+          asset_path: ./build/${{ env.DEB_FILE }}
+          asset_name: ${{ env.DEB_FILE }}
           asset_content_type: application/vnd.debian.binary-package
