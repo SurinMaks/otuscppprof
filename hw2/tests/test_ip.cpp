@@ -1,4 +1,4 @@
-#define BOOST_TEST_MODULE HW2Test
+#define BOOST_TEST_MODULE HW2TestIP
 #include <boost/test/unit_test.hpp>
 #include <sstream>
 #include <iostream>
