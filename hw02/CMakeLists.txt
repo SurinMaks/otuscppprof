@@ -49,7 +49,7 @@ target_link_libraries(${PROJ_NAME} PRIVATE ip viewdata)
 # )
 
 install(
-    TARGETS ${PROJ_NAME} ${LIB_NAME}
+    TARGETS ${PROJ_NAME} ip viewdata
     RUNTIME DESTINATION bin          # Исполняемые файлы (.exe, без расширения в Linux)
     LIBRARY DESTINATION lib          # Shared-библиотеки (.so, .dll)
     ARCHIVE DESTINATION lib          # Статические библиотеки (.a, .lib)
