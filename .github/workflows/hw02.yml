@@ -30,7 +30,7 @@ jobs:
       - name: Generate packages with CPack
         run: |
           cd build
-          sudo cpack
+          cpack
           echo "DEB_FILE=$(ls *.deb | head -1)" >> $GITHUB_ENV
           
         # 4. Запуск тестов
