@@ -24,14 +24,14 @@ jobs:
         run: |
           mkdir build
           cd build
-          cmake ../hw02
+          cmake ../hw02 -DCMAKE_INSTALL_PREFIX=/usr/local
 
         # 3. Генерация пакетов
       - name: Generate packages with CPack
         run: |
           cd build
           cmake --build . --config Release
-          cpack -G DEB
+          cpack -G DEB --config CPackConfig.cmake
           echo "DEB_FILE=$(ls *.deb | head -1)" >> $GITHUB_ENV
           
         # 4. Запуск тестов
