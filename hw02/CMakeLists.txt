@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.10.0)
 
 set(PROJ_NAME ip_filter)
+set(CPACK_DEBIAN_PACKAGE_GENERATE_SHLIBS OFF)
+set(CPACK_DEBIAN_PACKAGE_GENERATE_ADDONS OFF)
 
 project(${PROJ_NAME} VERSION 0.1.0 LANGUAGES CXX)
 
@@ -74,10 +76,6 @@ set(CPACK_DEBIAN_PACKAGE_DEPENDS "")
 
 # install(DIRECTORY DESTINATION /opt/hw2/lib)
 # install(DIRECTORY DESTINATION /opt/hw2/bin)
-
-set(CPACK_PREINSTALL_SCRIPT "${CMAKE_CURRENT_BINARY_DIR}/preinstall.sh")
-file(WRITE ${CPACK_PREINSTALL_SCRIPT} "#!/bin/sh\necho \"Custom preinstall script\"\nexit 0\n")
-install(CODE "execute_process(COMMAND chmod +x ${CPACK_PREINSTALL_SCRIPT})")
 
 include(CPack)
 
