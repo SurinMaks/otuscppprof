@@ -30,7 +30,7 @@ jobs:
       - name: Generate packages with CPack
         run: |
           cd build
-          cpack
+          cmake --build . --config Release
           cpack -G DEB
           echo "DEB_FILE=$(ls *.deb | head -1)" >> $GITHUB_ENV
           

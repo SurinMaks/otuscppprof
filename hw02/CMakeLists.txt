@@ -1,10 +1,11 @@
 cmake_minimum_required(VERSION 3.10.0)
 
 set(PROJ_NAME ip_filter)
+
 # set(CPACK_DEBIAN_PACKAGE_GENERATE_SHLIBS OFF)
 # set(CPACK_DEBIAN_PACKAGE_GENERATE_ADDONS OFF)
 
-project(${PROJ_NAME} VERSION 0.1.0 LANGUAGES CXX)
+project(${PROJ_NAME} VERSION 0.1.0 LANGUAGES C CXX)
 
 option(BOOST_TEST "Whether to build Boost test" ON)
 # option(RPATH "Set RPATH" ON)
@@ -18,6 +19,7 @@ option(BOOST_TEST "Whether to build Boost test" ON)
 # set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 # set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
+find_package(Boost CONFIG REQUIRED COMPONENTS unit_test_framework) 
 add_subdirectory(src)
 
 target_include_directories(ip
