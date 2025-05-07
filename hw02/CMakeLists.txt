@@ -40,12 +40,19 @@ target_link_libraries(${PROJ_NAME} PRIVATE ip viewdata)
 #     LIBRARY DESTINATION /opt/hw2/lib
 # )
 
-install(TARGETS ${PROJ_NAME}
-    DESTINATION bin
-)
+# install(TARGETS ${PROJ_NAME}
+#     DESTINATION bin
+# )
 
-install(TARGETS ip viewdata
-    LIBRARY DESTINATION lib
+# install(TARGETS ip viewdata
+#     LIBRARY DESTINATION lib
+# )
+
+install(
+    TARGETS ${PROJ_NAME} ${LIB_NAME}
+    RUNTIME DESTINATION bin          # Исполняемые файлы (.exe, без расширения в Linux)
+    LIBRARY DESTINATION lib          # Shared-библиотеки (.so, .dll)
+    ARCHIVE DESTINATION lib          # Статические библиотеки (.a, .lib)
 )
 
 # # Скрипты для управления симлинком
