@@ -75,6 +75,11 @@ set(CPACK_DEBIAN_PACKAGE_DEPENDS "")
 # install(DIRECTORY DESTINATION /opt/hw2/lib)
 # install(DIRECTORY DESTINATION /opt/hw2/bin)
 
+add_custom_target(run_preinstall 
+    COMMAND echo "Running pre-installation steps"
+    COMMENT "Preparing system for package installation"
+)
+
 include(CPack)
 
 if(BOOST_TEST)
