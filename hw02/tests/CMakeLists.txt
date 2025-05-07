@@ -6,7 +6,7 @@ find_package(Boost 1.71.0 CONFIG REQUIRED COMPONENTS unit_test_framework)
 
 # Для test_ip.cpp
 add_executable(test_ip test_ip.cpp)
-target_link_libraries(test_ip PRIVATE ip viewdata func Boost::unit_test_framework)
+target_link_libraries(test_ip PRIVATE ip viewdata Boost::unit_test_framework)
 add_test(NAME IPTest COMMAND test_ip)
 
 # # Для test_viewdata.cpp
