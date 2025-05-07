@@ -2,10 +2,9 @@
 #include <boost/test/unit_test.hpp>
 #include <sstream>
 #include <iostream>
-#include "../include/viewdata.hpp"
 #include "../include/ip.hpp"
 
-BOOST_AUTO_TEST_SUITE(IPTest) // Начало набора тестов
+BOOST_AUTO_TEST_SUITE(IPTest)
 
     BOOST_AUTO_TEST_CASE(test_getIP) {
         hw2::IP ip1;
@@ -15,15 +14,18 @@ BOOST_AUTO_TEST_SUITE(IPTest) // Начало набора тестов
         BOOST_CHECK_EQUAL(ip1.getIP(), "192.168.1.1");
     }
 
-    BOOST_AUTO_TEST_CASE(test_equals) {
+    BOOST_AUTO_TEST_CASE(test_Sort) {
         hw2::IP ip1, ip2;
-        std::istringstream iss1("192.168.1.1");
-        std::istringstream iss2("192.168.1.2");
+        std::vector<hw2::IP> ips;
+        std::istringstream iss1("192.168.1.1\t1.1.1.1");
+        std::istringstream iss2("192.168.1.2\t2.2.2.2");
         ip1.ReadData(iss1);
         ip2.ReadData(iss2);
-
-        BOOST_CHECK(ip1 < ip2); // Проверяем, что ip1 < ip2
-        BOOST_CHECK(!(ip2 < ip1)); // Проверяем обратное
+        ips.push_back(ip1);
+        ips.push_back(ip2);
+        std::sort(ips.begin(), ips.end());
+        BOOST_TEST(ips[0].getIP() == "192.168.1.2");
+        BOOST_TEST(ips[1].getIP() == "192.168.1.1");
     }
 
-BOOST_AUTO_TEST_SUITE_END() // Конец набора тестов
+BOOST_AUTO_TEST_SUITE_END()
