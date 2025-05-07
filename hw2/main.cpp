@@ -6,7 +6,6 @@
 #include "viewdata.hpp"
 
 int main(int, char**){
-    
     hw2::IP ip;
     hw2::ViewData viewdata;
     std::vector<hw2::IP> ips;
