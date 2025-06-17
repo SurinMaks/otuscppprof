@@ -7,7 +7,18 @@
 namespace hw03{
     template<typename T>
     class MyList : public hw03::IMyContainer<T> {
-    public:
+        public:
+            // Предварительное объявление. Реализация будет ниже.
+            class MyIterator;
+
+            MyIterator begin(){
+                return MyIterator(m_head.get());
+            };
+
+            MyIterator end(){
+                return MyIterator(nullptr);
+            };
+
             MyList() = default;
 
             ~MyList() {};
@@ -157,7 +168,7 @@ namespace hw03{
                 }
                 return current->m_value;
             };
-    private:
+        private:
             struct MyNode
             {
                 MyNode(const T& value){
@@ -190,6 +201,55 @@ namespace hw03{
 
             std::unique_ptr<struct MyNode> m_head = nullptr;
             unsigned int m_size = 0;
+        public:
+            class MyIterator{
+                public:
+                    using iterator_category = std::forward_iterator_tag;
+                    using value_type = T;
+                    using difference_type = std::ptrdiff_t;
+                    using pointer = T*;
+                    using reference = T&;
+
+                    explicit MyIterator(MyNode* node): m_current(node){}
+
+                    //Префиксный инкремент
+                    MyIterator operator++(){
+                        if(m_current){
+                            m_current = m_current->m_next.get();
+                        }
+                        return *this;
+                    }
+
+                    //Постфиксный инкремент
+                    MyIterator operator++(int){
+                        MyIterator temp = *this;
+                        ++(*this);
+                        return temp;
+                    }
+
+                    //Сравнение равенством
+                    bool operator==(const MyIterator& other) const{
+                        return m_current == other.m_current;
+                    }
+
+                    //Сравнение неравенством
+                    bool operator!=(const MyIterator& other) const{
+                        return !(*this == other);
+                    }
+
+                    //Разыменование
+                    reference operator*() const{
+                        return m_current->m_value;
+                    }
+
+                    //Доступ
+                    pointer operator->() const{
+                        return &(m_current->m_value);
+                    }
+
+                private:
+                    MyNode* m_current;
+            };
     };
 
 }//namespace hw03
