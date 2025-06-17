@@ -1,6 +1,7 @@
 #include <iostream>
 #include <map>
 #include "MyList.hpp"
+#include "MyAllocatorMap.hpp"
 
 namespace usefull{
     int factorial(int n)
@@ -27,9 +28,18 @@ int main(int, char**){
     }
 
     // - создание экземпляра std::map<int, int> с новым аллокатором, ограниченным 10 элементами
+    std::map<int, int, std::less<int>, hw03::MyAllocatorMap<std::pair<const int, int>, 10>> myMap;
+
     // - заполнение 10 элементами, где ключ - это число от 0 до 9, а значение - факториал ключа
+    for(size_t i = 0; i < MAX_VALUE; ++i){
+        myMap.emplace(i, usefull::factorial(i));
+    }
     // - вывод на экран всех значений (ключ и значение разделены пробелом) хранящихся в контейнере
     for(const auto& [key, value] : std_map){
+        std::cout << key << ' ' << value << '\n';
+    }
+
+    for(const auto& [key, value] : myMap){
         std::cout << key << ' ' << value << '\n';
     }
 
@@ -43,5 +53,7 @@ int main(int, char**){
     // - создание экземпляра своего контейнера для хранения значений типа int с новым аллокатором, ограниченным 10 элементами
     // - заполнение 10 элементами от 0 до 9
     // - вывод на экран всех значений, хранящихся в контейнере
-    mylist.printList();
+    for(const auto& el : mylist){
+        std::cout << el << ' ';
+    }
 }
