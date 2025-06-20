@@ -5,6 +5,12 @@ add_executable(hw03 main.cpp)
 
 target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
+set(CPACK_GENERATOR "DEB")
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
+set(CPACK_PACKAGE_CONTACT "Maxim Surin surin.maks@yandex.ru")
+set(CPACK_DEBIAN_PACKAGE_MAINTAINER "Maxim Surin")
+set(CPACK_PACKAGE_DESCRIPTION "otus_cpp_hw03")
+set(CPACK_DEBIAN_PACKAGE_DEPENDS "")
+
 include(CPack)
