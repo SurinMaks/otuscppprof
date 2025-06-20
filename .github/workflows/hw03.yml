@@ -1,0 +1,71 @@
+name: hw02
+
+on:
+  push:
+    branches: [ "main" ]
+    paths:
+      - 'hw03/**'  #только для hw03
+jobs:
+  build-and-package:
+    runs-on: ubuntu-latest
+
+    steps:
+        # 1. Установка зависимостей
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y cmake build-essential libboost-test-dev
+
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+        # 2. Сборка проекта
+      - name: Configure with CMake
+        run: |
+          mkdir build
+          cd build
+          cmake ../hw03 -DCMAKE_INSTALL_PREFIX=/usr/local
+
+        # 3. Генерация пакетов
+      - name: Generate packages with CPack
+        run: |
+          cd build
+          cmake --build . --config Release
+          cpack -G DEB --config CPackConfig.cmake
+          echo "DEB_FILE=$(ls *.deb | head -1)" >> $GITHUB_ENV
+          
+        # 4. Запуск тестов
+      - name: Run tests (fail on error)
+        run: |
+          cd build
+          ctest --output-on-failure || exit 1
+
+        # 5. Сохранение артефактов
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: otus_cpp_hw03
+          path: build/*.deb 
+
+        #6. Создание релиза
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.PERSONAL_TOKEN }}
+        with:
+          tag_name: ${{ github.run_number }}
+          release_name: Release ${{ github.run_number }}
+          draft: false
+          prerelease: false
+
+        #7. Загрузка в релизы
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.PERSONAL_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./build/${{ env.DEB_FILE }}
+          asset_name: ${{ env.DEB_FILE }}
+          asset_content_type: application/vnd.debian.binary-package
