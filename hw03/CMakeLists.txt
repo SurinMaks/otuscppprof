@@ -6,7 +6,7 @@ add_executable(hw03 main.cpp)
 target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 install(
-    TARGETS ${PROJ_NAME}
+    TARGETS ${PROJECT_NAME}
     RUNTIME DESTINATION bin
     LIBRARY DESTINATION lib
     ARCHIVE DESTINATION lib
