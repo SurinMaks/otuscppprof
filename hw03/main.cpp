@@ -17,7 +17,7 @@ namespace usefull{
 }
 
 int main(int, char**){
-    std::cout << "Hello, from hw03!\n";
+    std::cout << "Hello, from hw03.\n";
 
     size_t MAX_VALUE{10};
 
