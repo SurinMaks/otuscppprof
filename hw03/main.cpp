@@ -1,7 +1,9 @@
 #include <iostream>
 #include <map>
 #include "MyList.hpp"
+#include <memory>
 #include "MyAllocatorMap.hpp"
+#include "MyAllocatorMyList.hpp"
 
 namespace usefull{
     int factorial(int n)
@@ -47,13 +49,25 @@ int main(int, char**){
     hw03::MyList<int> mylist;
 
     // - заполнение 10 элементами от 0 до 9
-    for(size_t i = 0; i < MAX_VALUE; ++i){
+    for (int i = 0; i < MAX_VALUE; ++i) {
         mylist.push_back(i);
     }
+
     // - создание экземпляра своего контейнера для хранения значений типа int с новым аллокатором, ограниченным 10 элементами
+    hw03::MyList<int, hw03::MyAllocatorMyList<int, 10>> mylist_alloc;
+
     // - заполнение 10 элементами от 0 до 9
+    for (int i = 0; i < MAX_VALUE; ++i) {
+        mylist_alloc.push_back(i);
+    }
+
     // - вывод на экран всех значений, хранящихся в контейнере
     for(const auto& el : mylist){
+        std::cout << el << ' ';
+    }
+    std::cout << '\n';
+
+    for(const auto& el : mylist_alloc){
         std::cout << el << ' ';
     }
 }
