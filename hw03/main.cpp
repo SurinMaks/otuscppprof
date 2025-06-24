@@ -70,4 +70,16 @@ int main(int, char**){
     for(const auto& el : mylist_alloc){
         std::cout << el << ' ';
     }
+
+    //Пример для vector
+    std::cout << "\nПример для vector\n";
+    std::vector<int, hw03::MyAllocatorMap<int, 10>> myVector;
+    myVector.reserve(MAX_VALUE); 
+    for (size_t i = 0; i < MAX_VALUE; ++i) {
+        myVector.push_back(i);
+    }
+
+    for (const auto& el : myVector) {
+        std::cout << el << ' ';
+    }
 }
