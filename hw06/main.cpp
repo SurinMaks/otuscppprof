@@ -1,6 +1,7 @@
 #include <iostream>
 #include <Matrix.hpp>
 
+
 int main(int, char**){
     hw06::Matrix<int, 0> matrix;
     for(int i = 0; i < 10; ++i){
