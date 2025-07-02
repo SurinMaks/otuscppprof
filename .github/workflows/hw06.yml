@@ -54,8 +54,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.PERSONAL_TOKEN }}
         with:
-          tag_name: ${{ github.run_number }}
-          release_name: Release ${{ github.run_number }}
+          tag_name: hw06_${{ github.run_number }}
+          release_name: Release hw06_${{ github.run_number }}
           draft: false
           prerelease: false
 
